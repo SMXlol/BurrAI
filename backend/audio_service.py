@@ -2,12 +2,13 @@ import joblib
 import pandas as pd
 import librosa
 from pathlib import Path
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 
 
 def predict(model, features_list):
     features_df = pd.DataFrame([features_list])
-    scaler = StandardScaler()
+    scaler = MinMaxScaler(feature_range=(-1, 1))
     features_scaled = scaler.fit_transform(features_df)
     return model.predict(features_scaled)
 
